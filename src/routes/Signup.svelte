@@ -22,13 +22,13 @@
     <div class="h-30"></div>
 
     <img 
-        src="/img/flower-bg.png"
+        src="/unesawin/img/flower-bg.png"
         alt="bunga"
         class="absolute -left-15 w-60 top-10 z-[0] filter invert brightness-0 opacity-30"
     />
 
     <div class="bg-one min-h-[90vh] rounded-t-4xl px-8 py-4 z-1">
-        <a href="/#/login" class="text-two font-semibold">{`<- Kembali`}</a>
+        <a href="/unesawin/#/login" class="text-two font-semibold">{`<- Kembali`}</a>
 
         <h1 class="text-two font-bold text-4xl my-8">
             Daftar
