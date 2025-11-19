@@ -12,26 +12,26 @@
 
 <div class={`${pending ? 'bg-one' : ''} text-white rounded-t-[30%] rounded-b-4xl w-full`}>
   <div class="bg-two py-1 rounded-full flex justify-center">
-    <div class="py-2 w-xs">
+    <div class="py-2 w-[16rem]">
       <h4 class="font-bold text-xl">
         {name}
       </h4>
 
-      <p class="text-sm font-semibold">
+      <p class="text-xs font-semibold">
         {address}
       </p>
 
       <div class="flex gap-2 items-center">
         <div class="flex gap-1 items-center">
-          <Calendar class="w-5 h-5" />
-          <p class="text-xs">
+          <Calendar class="w-4 h-4" />
+          <p class="text-[0.6rem]">
             {date}
           </p>
         </div>
 
         <div class="flex gap-1 items-center">
-          <Clock class="w-5 h-5" />
-          <p class="text-xs">
+          <Clock class="w-4 h-4" />
+          <p class="text-[0.6rem]">
             {time}
           </p>
         </div>
@@ -50,7 +50,7 @@
 
   {#if pending}
     <div class="w-full flex justify-center pt-2 pb-3">
-      <div class="flex items-center w-xs gap-3">
+      <div class="flex items-center w-[16rem] gap-3">
         <div class="bg-two rounded-full w-2 h-2"></div>
         <p class="text-two font-semibold">
           Pending

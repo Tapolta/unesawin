@@ -1,8 +1,9 @@
 <script lang="ts">
   import Navbar from "../components/Navbar.svelte";
+  import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
 
-  let isRiwayat = $state(true);
+  let isRiwayat = $state(false);
 
   let toggleRiwayat = () => {
     isRiwayat = !isRiwayat;
@@ -10,26 +11,26 @@
 </script>
 
 <section class="max-w-xl min-h-screen bg-three mx-auto flex flex-col items-center px-8">
-  <div class="pt-8 pb-4 flex gap-2 items-center justify-center">
+  <div class="pt-16 pb-5 flex gap-3 items-center justify-center">
     <button 
       onclick={toggleRiwayat}
       disabled={isRiwayat}
-      class={`text-[0.65rem] py-[1px] rounded-md text-white w-16 ${!isRiwayat ? 'bg-four' : 'bg-two'}`}
+      class={`text-md py-[1px] rounded-md text-white w-24 ${!isRiwayat ? 'bg-four' : 'bg-two'}`}
     >
       Riwayat
     </button>
     <button 
       onclick={toggleRiwayat}
       disabled={!isRiwayat}
-      class={`text-[0.65rem] py-[1px] rounded-md text-white w-16 ${isRiwayat ? 'bg-four' : 'bg-two'}`}
+      class={`text-md py-[1px] rounded-md text-white w-24 ${isRiwayat ? 'bg-four' : 'bg-two'}`}
     >
       Rekaman
     </button>
   </div>
 
   {#if isRiwayat}
-  <ul class="w-full flex flex-col gap-5">
-    <li class="">
+  <ul class="w-full flex flex-col gap-5 mb-28">
+    <li>
       <RiwayatCard 
         address={"Jl. Ketintang Selatan 1, Wonokromo, Surabaya"} 
         date={"Senin, 17 November 2025"} 
@@ -48,7 +49,65 @@
       />
     </li>
   </ul>
+  {:else}
+  <ul class="w-full flex flex-col gap-4 overflow-y-auto mb-28">
+    <li>
+      <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        ]} 
+      />
+    </li>
+    <li>
+      <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        {
+          isPotential: true,
+          audioPath: '',
+          duration: '00.00'
+        },
+        ]} 
+      />
+    </li>
+  </ul>
   {/if}
-</section>
 
-<Navbar page={"history"} />
+  <Navbar page={"history"} />
+</section>

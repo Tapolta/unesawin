@@ -12,7 +12,7 @@
 
 <div class="fixed bottom-0 w-full bg-white px-6 py-1 flex justify-between z-[9999] max-w-xl mx-auto">
     <!-- Dashboard -->
-    <a href="/#/dashboard" 
+    <a href="/unesawin/#/dashboard" 
        class={`flex flex-col justify-center items-center 
             ${isActive('dashboard') ? 'text-two' : 'text-four'}`}
         >
@@ -21,7 +21,7 @@
     </a>
 
     <!-- History -->
-    <a href="/#/history" 
+    <a href="/unesawin/#/history" 
        class={`flex flex-col justify-center items-center 
             ${isActive('history') ? 'text-two' : 'text-four'}`}
         >
@@ -30,7 +30,7 @@
     </a>
 
     <!-- Record (buton tengah) -->
-    <a href="/#/record" 
+    <a href="/unesawin/#/record" 
         class="flex flex-col justify-center items-center -translate-y-10 bg-two p-2 
             rounded-full text-white border-2 border-four"
     > 
@@ -38,7 +38,7 @@
     </a>
 
     <!-- Profile -->
-    <a href="/#/profile" 
+    <a href="/unesawin/#/profile" 
        class={`flex flex-col justify-center items-center 
             ${isActive('profile') ? 'text-two' : 'text-four'}`}
         >
@@ -47,7 +47,7 @@
     </a>
 
     <!-- Settings -->
-    <a href="/#/settings" 
+    <a href="/unesawin/#/settings" 
        class={`flex flex-col justify-center items-center 
             ${isActive('settings') ? 'text-two' : 'text-four'}`}
        >
