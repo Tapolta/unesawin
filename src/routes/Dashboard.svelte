@@ -5,14 +5,14 @@
 </script>
 
 <div class="max-w-xl mx-auto h-screen">
-    <div class="bg-one px-6 h-[100%]">
-        <div class="sticky top-0 left-0 w-full z-[9999] bg-one">
-            <div class="flex justify-between items-center py-8">
+    <div class="bg-three px-6 min-h-[100%]">
+        <div class="sticky top-0 left-0 w-full z-[9999] bg-three pb-2">
+            <div class="flex justify-between items-center py-6">
                 <div class="flex justify-center items-center gap-2">
                     <img 
                         src="https://cdn.pixabay.com/photo/2012/04/18/23/36/boy-38262_1280.png"
                         alt="profil-pic"
-                        class="w-12 h-12 rounded-full"
+                        class="w-12 h-12 rounded-full bg-gray-300"
                     />
                     <div>
                         <p class="text-xs translate-y-1">
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <section class="flex flex-col gap-3 mt-4 overflow-y-auto pb-20">
+        <section class="flex flex-col gap-3 overflow-y-auto pb-24">
             <NewsCard title={"Tuberkolosis (TBC)"} detail={"Penyakit menular yang disebabkan oleh bakteri Mycobacterium tuberculosis, yang paling sering menyerang paru-paru, tetapi bisa juga menyerang organ tubuh lain seperti ginjal, tulang belakang, dan otak."} />
             <NewsCard title={"Tuberkolosis (TBC)"} detail={"Penyakit menular yang disebabkan oleh bakteri Mycobacterium tuberculosis, yang paling sering menyerang paru-paru, tetapi bisa juga menyerang organ tubuh lain seperti ginjal, tulang belakang, dan otak."} />
             <NewsCard title={"Tuberkolosis (TBC)"} detail={"Penyakit menular yang disebabkan oleh bakteri Mycobacterium tuberculosis, yang paling sering menyerang paru-paru, tetapi bisa juga menyerang organ tubuh lain seperti ginjal, tulang belakang, dan otak."} />
@@ -53,5 +53,5 @@
         </section>
     </div>
 
-    <Navbar />
+    <Navbar page={"dashboard"} />
 </div>

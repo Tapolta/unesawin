@@ -9,7 +9,7 @@
     <h3 class="text-3xl font-semibold mb-2">
         {title}
     </h3>
-    <p class="text-gray-300 text-xs">
+    <p class="text-gray-200 text-xs">
         {detail}
     </p>
 </div>
