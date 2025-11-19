@@ -3,7 +3,7 @@
   import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
 
-  let isRiwayat = $state(false);
+  let isRiwayat = $state(true);
 
   let toggleRiwayat = () => {
     isRiwayat = !isRiwayat;
