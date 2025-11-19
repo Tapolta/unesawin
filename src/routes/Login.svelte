@@ -5,7 +5,7 @@
     import Eye from "@lucide/svelte/icons/eye";
     import EyeClosed from "@lucide/svelte/icons/eye-closed";
     import Role from "../enums/Role.enum";
-    import { push, replace, pop } from "svelte-spa-router";
+    import { push } from "svelte-spa-router";
 
     let isPassVisible = $state(false);
 
@@ -14,7 +14,7 @@
     }
 
     const onLogin = () => {
-        push('/unesawin/dashboard');
+        push('/dashboard');
     }
 </script>
 

@@ -105,21 +105,21 @@
         <ul class="flex justify-center gap-8 my-8">
             <li>
                 <img 
-                    src="/img/facebook_icon.webp"
+                    src="/unesawin/img/facebook_icon.webp"
                     alt="google icon"
                     class="w-12 bg-white p-2 rounded-xl"
                 />
             </li>
             <li>
                 <img 
-                    src="/img/google_icon.png"
+                    src="/unesawin/img/google_icon.png"
                     alt="google icon"
                     class="w-12 bg-white p-3 rounded-xl"
                 />
             </li>
             <li>
                 <img 
-                    src="/img/apple_icon.png"
+                    src="/unesawin/img/apple_icon.png"
                     alt="google icon"
                     class="w-12 bg-white p-2 rounded-xl"
                 />

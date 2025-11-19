@@ -13,6 +13,6 @@
   };
 </script>
 
-<main class="bg-two">
+<main class="bg-two w-screen overflow-x-none">
   <Router {routes} />
 </main>
