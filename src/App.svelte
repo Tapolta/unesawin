@@ -5,13 +5,15 @@
   import Signup from "./routes/Signup.svelte";
   import Dashboard from "./routes/Dashboard.svelte";
   import History from "./routes/History.svelte";
+  import Record from "./routes/Record.svelte";
 
   const routes = {
     '/': LandingPage,
     '/login': Login,
     '/sign-up': Signup,
     '/dashboard': Dashboard,
-    '/history': History
+    '/history': History,
+    '/record': Record
   };
 </script>
 
