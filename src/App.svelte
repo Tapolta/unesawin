@@ -6,6 +6,7 @@
   import Dashboard from "./routes/Dashboard.svelte";
   import History from "./routes/History.svelte";
   import Record from "./routes/Record.svelte";
+  import RecordCheck from "./routes/RecordCheck.svelte";
 
   const routes = {
     '/': LandingPage,
@@ -13,10 +14,11 @@
     '/sign-up': Signup,
     '/dashboard': Dashboard,
     '/history': History,
-    '/record': Record
+    '/record': Record,
+    '/record-check/:id': RecordCheck
   };
 </script>
 
-<main class="bg-two w-screen overflow-x-none">
+<main class="bg-two w-screen overflow-x-none max-w-full">
   <Router {routes} />
 </main>

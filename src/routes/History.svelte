@@ -8,6 +8,8 @@
   let toggleRiwayat = () => {
     isRiwayat = !isRiwayat;
   }
+
+  let isDeleteMode = $state(false);
 </script>
 
 <section class="max-w-xl min-h-screen bg-three mx-auto flex flex-col items-center px-8">
@@ -54,21 +56,25 @@
     <li>
       <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
         {
+          id: 1,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 2,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 3,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 4,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
@@ -79,26 +85,31 @@
     <li>
       <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
         {
+          id: 5,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 6,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 7,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 8,
           isPotential: true,
           audioPath: '',
           duration: '00.00'
         },
         {
+          id: 9,
           isPotential: true,
           audioPath: '',
           duration: '00.00'

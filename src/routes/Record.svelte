@@ -1,7 +1,9 @@
 <script lang="ts">
   import { AudioLines, Mic } from "@lucide/svelte";
+  import { push } from "svelte-spa-router";
 
   let isRecord = $state(false);
+  let afterRecord = $state(false);
 
   const onRecord = (record: boolean) => {
     isRecord = record;
@@ -9,6 +11,9 @@
 
   const handlePointerUp = () => {
     onRecord(false);
+
+    // push('/record-check/1');
+    afterRecord = true;
   }
 
   const handlePointerDown = () => {
@@ -31,13 +36,14 @@
     <button
       onpointerdown={handlePointerDown}
       onpointerup={handlePointerUp}
+      onpointerleave={handlePointerUp}
       onpointercancel={handlePointerUp}
       class="rounded-full p-6 bg-two"
     >
       {#if isRecord}
-        <AudioLines class="text-white w-28 h-28" />
+      <AudioLines class="text-white w-28 h-28" />
       {:else}
-        <Mic class="text-white w-28 h-28" />
+      <Mic class="text-white w-28 h-28" />
       {/if}
     </button>
   </div>

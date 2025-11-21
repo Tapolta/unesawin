@@ -33,6 +33,10 @@
                 </button>
             </div>
 
+            <h2 class="text-2xl font-bold mb-4">
+                Apa yang ingin Anda ketahui hari ini?
+            </h2>
+
             <div class="overflow-x-auto withespace-nowrap flex flex-col gap-2">
                 <div class="flex items-center justify-between gap-2">
                     <SuggestionBtn title={"Gejala penyakit Tuberkolosis"} />

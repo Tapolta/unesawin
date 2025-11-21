@@ -1,15 +1,21 @@
 <script lang="ts">
-  import { Pause, Play } from "@lucide/svelte";
+  import { Info, Pause, Play, Trash } from "@lucide/svelte";
   import type { RecorderStruct } from "../../structures/recorder.struct";
+  import { push } from "svelte-spa-router";
 
-  let { recorder } = $props<{
-    recorder: RecorderStruct
+  let { recorder, isSelectedMode = $bindable() } = $props<{
+    recorder: RecorderStruct,
+    isSelectedMode?: boolean
   }>();
   let isPlay = $state(false);
+
+  const openHistoryInfo = () => {
+    push(`/record-check/${recorder.id}`);
+  }
 </script>
 
 <div class="border border-b-0 border-two rounded-3xl mx-[1px]">
-  <div class="pl-6 py-1">
+  <div class="px-6 py-1 flex justify-between items-center">
     <h5 class="text-two font-bold text-lg">
       {#if recorder.isPotential}
       Berpotensi
@@ -17,6 +23,22 @@
       Tidak Berpotensi
       {/if}
     </h5>
+
+    <div class="flex items-center gap-2">
+      <button 
+        onclick={openHistoryInfo}
+        class="bg-two text-white rounded-full"
+      >
+        <Info class="w-6 h-6" />
+      </button>
+
+      {#if isSelectedMode}
+        <input 
+          type="checkbox"
+          class="w-4 h-4 rounded-lg border-two text-two focus:ring-two"
+        />
+      {/if}
+    </div>
   </div>
 
   <div class="bg-two rounded-lg text-one -mx-[1px] px-3">
