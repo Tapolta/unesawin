@@ -7,6 +7,8 @@
   import History from "./routes/History.svelte";
   import Record from "./routes/Record.svelte";
   import RecordCheck from "./routes/RecordCheck.svelte";
+  import HistoryDetailed from "./routes/HistoryDetailed.svelte";
+  import HistoryEmpty from "./routes/HistoryEmpty.svelte";
 
   const routes = {
     '/': LandingPage,
@@ -14,8 +16,10 @@
     '/sign-up': Signup,
     '/dashboard': Dashboard,
     '/history': History,
+    '/history/not-found': HistoryEmpty,
+    '/history/:id': HistoryDetailed,
     '/record': Record,
-    '/record-check/:id': RecordCheck
+    '/record-check/:id': RecordCheck,
   };
 </script>
 

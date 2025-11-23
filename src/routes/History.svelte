@@ -2,6 +2,7 @@
   import Navbar from "../components/Navbar.svelte";
   import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
+  import { getHistoryDatas } from "../utils/get_json_data.utils";
 
   let isRiwayat = $state(true);
 
@@ -10,10 +11,12 @@
   }
 
   let isDeleteMode = $state(false);
+
+  const historyList = getHistoryDatas();
 </script>
 
 <section class="max-w-xl min-h-screen bg-three mx-auto flex flex-col items-center px-8">
-  <div class="pt-16 pb-5 flex gap-3 items-center justify-center">
+  <div class="pt-6 pb-5 flex gap-3 items-center justify-center sticky top-0 z-10 bg-three w-full">
     <button 
       onclick={toggleRiwayat}
       disabled={isRiwayat}
@@ -32,24 +35,11 @@
 
   {#if isRiwayat}
   <ul class="w-full flex flex-col gap-5 mb-28">
+    {#each historyList as history (history.id)}
     <li>
-      <RiwayatCard 
-        address={"Jl. Ketintang Selatan 1, Wonokromo, Surabaya"} 
-        date={"Senin, 17 November 2025"} 
-        time={"12.00"} 
-        name={"Rs.Unesa Ketintang"}
-        pending={true}
-      />
+      <RiwayatCard {history} />
     </li>
-    <li>
-      <RiwayatCard 
-        address={"Jl. Lidah Wetan 5, Lakarsantri, Surabaya"} 
-        date={"Kamis, 15 Oktober 2025"} 
-        time={"15.00"} 
-        name={"Rs. Unesa Lidah Wetan"}
-        pending={false}
-      />
-    </li>
+    {/each}
   </ul>
   {:else}
   <ul class="w-full flex flex-col gap-4 overflow-y-auto mb-28">
