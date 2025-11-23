@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import SuggestionWrapper from "../components/keyword_suggestion/SuggestionWrapper.svelte";
   import Navbar from "../components/Navbar.svelte";
   import NewsCard from "../components/news_cards/NewsCard.svelte";
@@ -96,6 +97,10 @@
       } 
     },
   ];
+
+  onMount(() => {
+    window.scrollTo(0, 0);
+  });
 </script>
 
 <div class="max-w-xl mx-auto min-h-screen h-full">

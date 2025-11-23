@@ -2,13 +2,14 @@
   import { AlertTriangle, Check, MoveLeft, Star } from "@lucide/svelte";
   import { params } from "svelte-spa-router";
   import Navbar from "../components/Navbar.svelte";
-  import { getHistorydata } from "../utils/get_json_data.utils";
+  import { getHistoryData } from "../utils/get_json_data.utils";
   import type { HistoryStruct } from "../structures/history.struct";
   import HistoryStatus from "../enums/historyStatus.enum";
   import { push } from 'svelte-spa-router';
+  import { onMount } from "svelte";
 
   let id = $derived($params?.id);
-  let data: HistoryStruct | undefined = $derived(getHistorydata(Number(id)));
+  let data: HistoryStruct | undefined = $derived(getHistoryData(Number(id)));
 
   const handleBack = () => {
     window.history.back();
@@ -20,6 +21,10 @@
     if (data?.status === HistoryStatus.Pending || !data) {
       push('/history/not-found');
     }
+  });
+
+  onMount(() => {
+    window.scrollTo(0, 0);
   });
 </script>
 

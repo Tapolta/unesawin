@@ -1,18 +1,34 @@
 <script lang="ts">
+  import { Trash2 } from "@lucide/svelte";
   import Navbar from "../components/Navbar.svelte";
   import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
-  import { getHistoryDatas } from "../utils/get_json_data.utils";
+  import { getHistoryDatas, getRecHistoryDatas } from "../utils/get_json_data.utils";
+  import PopUpBase from "../components/popup/PopUpBase.svelte";
+  import { onMount } from "svelte";
 
   let isRiwayat = $state(true);
-
-  let toggleRiwayat = () => {
-    isRiwayat = !isRiwayat;
-  }
-
-  let isDeleteMode = $state(false);
+  let editedMode = $state(false);
+  let popUpOpen = $state(false);
+  let checkDeleteList: string[] = $state([]);
 
   const historyList = getHistoryDatas();
+  const recHistory = getRecHistoryDatas();
+
+  const cancelEditMode = () => {
+    editedMode = false;
+    checkDeleteList = [];
+  }
+
+  const toggleRiwayat = () => {
+    window.scrollTo(0, 0);
+    isRiwayat = !isRiwayat;
+    editedMode = false;
+  }
+
+  onMount(() => {
+    window.scrollTo(0, 0);
+  });
 </script>
 
 <section class="max-w-xl min-h-screen bg-three mx-auto flex flex-col items-center px-8">
@@ -42,73 +58,81 @@
     {/each}
   </ul>
   {:else}
+  <div class="w-full flex justify-end gap-1 mb-2">
+    {#if editedMode}
+     <button
+      onclick={cancelEditMode} 
+      class="bg-two rounded-xl text-white px-2 py-1"
+    >
+      Batalkan
+    </button>
+    {:else}
+     <button
+      onclick={() => editedMode = !editedMode} 
+      class="bg-two rounded-xl text-white px-2 py-1"
+    >
+      Pilih Rekaman
+    </button>
+    {/if}
+
+    {#if editedMode}
+    <button
+      onclick={() => popUpOpen = true}
+      class={`flex items-center gap-1 rounded-xl 
+        ${checkDeleteList.length === 0 ? 'bg-four' : 'bg-five'} text-white px-2 py-1`}
+      disabled={checkDeleteList.length === 0}
+    >
+      <Trash2 />
+      Hapus
+    </button>
+    {/if}
+  </div>
+
   <ul class="w-full flex flex-col gap-4 overflow-y-auto mb-28">
+    {#each recHistory as history}
     <li>
-      <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
-        {
-          id: 1,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 2,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 3,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 4,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        ]} 
+      <RecorederWrapper
+        date={history.date} 
+        recorders={history.history_record} 
+        isEditMode={editedMode}
+        bind:groupDeleted={checkDeleteList}
       />
     </li>
-    <li>
-      <RecorederWrapper date={"Senin, 17/11/25 "} recorders={[
-        {
-          id: 5,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 6,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 7,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 8,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        {
-          id: 9,
-          isPotential: true,
-          audioPath: '',
-          duration: '00.00'
-        },
-        ]} 
-      />
-    </li>
+    {/each}
   </ul>
   {/if}
 
   <Navbar page={"history"} />
 </section>
+
+<PopUpBase popUp={{
+  closable: false,
+  size: 'sm',
+  visible: popUpOpen,
+  alignCenter: true,
+}}>
+  <div class="flex flex-col gap-10">
+    <h6 class="text-two text-2xl font-bold text-center">
+      Hapus 
+      <span class="text-five">
+        {checkDeleteList.length}
+      </span>
+      Record?
+    </h6>
+
+    <div class="flex items-center justify-between px-20">
+      <button
+        onclick={() => popUpOpen = false}
+        class="font-bold text-two text-xl"
+      >
+        Tidak
+      </button>
+
+      <button
+        class="text-four text-xl"
+      >
+        Ya
+      </button>
+    </div>
+  </div>
+</PopUpBase>

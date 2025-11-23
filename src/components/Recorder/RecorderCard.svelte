@@ -3,9 +3,8 @@
   import type { RecorderStruct } from "../../structures/recorder.struct";
   import { push } from "svelte-spa-router";
 
-  let { recorder, isSelectedMode = $bindable() } = $props<{
+  let { recorder} = $props<{
     recorder: RecorderStruct,
-    isSelectedMode?: boolean
   }>();
   let isPlay = $state(false);
 
@@ -17,28 +16,19 @@
 <div class="border border-b-0 border-two rounded-3xl mx-[1px]">
   <div class="px-6 py-1 flex justify-between items-center">
     <h5 class="text-two font-bold text-lg">
-      {#if recorder.isPotential}
+      {#if recorder.is_potential}
       Berpotensi
       {:else}
       Tidak Berpotensi
       {/if}
     </h5>
 
-    <div class="flex items-center gap-2">
-      <button 
-        onclick={openHistoryInfo}
-        class="bg-two text-white rounded-full"
-      >
-        <Info class="w-6 h-6" />
-      </button>
-
-      {#if isSelectedMode}
-        <input 
-          type="checkbox"
-          class="w-4 h-4 rounded-lg border-two text-two focus:ring-two"
-        />
-      {/if}
-    </div>
+    <button 
+      onclick={openHistoryInfo}
+      class="bg-two text-white rounded-full"
+    >
+      <Info class="w-6 h-6" />
+    </button>
   </div>
 
   <div class="bg-two rounded-lg text-one -mx-[1px] px-3">

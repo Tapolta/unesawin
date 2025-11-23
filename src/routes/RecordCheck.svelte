@@ -1,19 +1,45 @@
 <script lang="ts">
-  import { AudioLines, CheckCircle, CircleAlert, PlayCircle } from "@lucide/svelte";
+  import { AlertTriangle, AudioLines, CheckCircle, CircleAlert, PlayCircle } from "@lucide/svelte";
   import { push } from "svelte-spa-router";
+  import { getRecHistoryData } from "../utils/get_json_data.utils";
+  import type { RecorderStruct } from "../structures/recorder.struct";
+  import { params } from "svelte-spa-router";
+  import { onMount } from "svelte";
+  
+  let id = $derived($params?.id);
+  let data: RecorderStruct | undefined = $derived(getRecHistoryData(id as string));
 
-  let isTb = $state(false);
+  const formatedDate = (date: Date) => {
+    if (!date) { return ''}
+
+    return date.toLocaleString("id-ID", {
+      weekday: "long",       
+      day: "2-digit",        
+      month: "short",        
+      year: "numeric",       
+      hour: "2-digit",       
+      minute: "2-digit",     
+      hour12: false,         
+      timeZoneName: "short"
+    });
+  }
 
   const saveHistory = () => {
     push('/history');
   }
+
+  onMount(() => {
+    window.scrollTo(0, 0);
+  });
 </script>
 
 <div class="max-w-xl mx-auto min-h-screen h-full bg-three mx-8">
-  <div class={`min-h-screen ${isTb ? "bg-five/40" : "bg-seven/40"} flex flex-col justify-between`}>
+  <div class={`min-h-screen ${data?.is_potential ? "bg-five/40" : "bg-seven/40"} flex flex-col 
+    justify-between`}
+  >
     <div class="flex items-center flex-col gap-2 pt-12 pb-8">
-      <div class={`rounded-full ${isTb ? "bg-five" : "bg-seven"}`}>
-        {#if isTb}
+      <div class={`rounded-full ${data?.is_potential ? "bg-five" : "bg-seven"}`}>
+        {#if data?.is_potential}
           <CircleAlert class="text-white w-30 h-30" />
         {:else}
           <CheckCircle class="text-white w-30 h-30" />
@@ -24,15 +50,9 @@
         Analisis selesai
       </p>
 
-      {#if isTb}
-      <h3 class="text-4xl text-five font-bold">
-        Indikasi Tinggi TBC
+      <h3 class={`text-4xl ${data?.is_potential ? 'text-five' : 'text-seven'}  font-bold`}>
+        {data?.is_potential ? 'Indikasi Tinggi TBC' : 'Tidak Terindikasi TBC'}
       </h3>
-      {:else}
-      <h3 class="text-4xl text-seven font-bold">
-        Tidak Terindikasi TBC
-      </h3>
-      {/if}
     </div>
 
     <div class="h-full bg-three mx-2 p-5 rounded-t-4xl flex flex-col gap-6">
@@ -41,20 +61,22 @@
           Detail rekaman
         </h6>
         
-        <div class="text-sm pb-3 text-gray-500">
+        <div class="text-sm pb-3 text-gray-700">
           <p>
-            ID rekaman: VN-20251120-001
+            ID rekaman: {data?.id}
           </p>
           <p>
-            Tanggal & Waktu: Kamis, 20 Nov 2025, 22.30 WIB
+            Tanggal & Waktu: {formatedDate(data?.date as Date)}
           </p>
           <p>
-            Durasi rekaman: 12 detik
+            Durasi rekaman: {data?.recorder.duration}
           </p>
         </div>
 
         <div class="bg-one py-2 relative flex items-center justify-center">
-            <div class={`flex w-full absolute justify-center ${isTb ? "text-five" : "text-seven"}`}>
+            <div class={`flex w-full absolute justify-center 
+              ${data?.is_potential ? "text-five" : "text-seven"}`}
+            >
               <AudioLines />
               <AudioLines />
               <AudioLines />
@@ -70,7 +92,7 @@
               <AudioLines />
             </div>
 
-            <button class={`${isTb ? "bg-five" : "bg-seven"} rounded-full z-1`}>
+            <button class={`${data?.is_potential ? "bg-five" : "bg-seven"} rounded-full z-1`}>
               <PlayCircle class="w-10 h-10 text-white" />
             </button>
         </div>
@@ -81,36 +103,37 @@
           Intepretasi Data Teknis
         </h6>
 
-        <div class="text-sm pb-3 text-gray-500">
+        <div class="text-sm text-gray-700">
           <p>
-            Pola Batuk Dideteksi: Batuk berdahak parah
+            Pola Batuk Dideteksi: {data?.details.cough_pattern}
           </p>
           <p>
-            Frekuensi Batuk: 5 kali dalam 4 detik
+            Frekuensi Batuk: {data?.details.cough_frequency}
           </p>
           <p>
-            Analisis AI: Anomali terdeteksi
+            Analisis AI: 
+            {data?.is_potential ? 'Anomali terdeteksi' : 'Tidak ada anomali terdeteksi'}
           </p>
         </div>
 
-        {#if isTb}
-        <h5 class="w-full bg-six/10 text-center text-six font-bold py-2 text-lg rounded-lg">
+        {#if data?.is_potential}
+        <h5 class="w-full bg-six/10 text-center text-six font-bold py-2 mt-3 text-lg rounded-lg">
           Segera Konsultasi Dokter
         </h5>
         {/if}
       </section>
         
-      {#if isTb}
+      {#if data?.is_potential}
       <section>
         <h6 class="font-bold text-md mb-1">
           Rekomendasi Cepat
         </h6>
 
-        <a href="/" class="underline text-gray-500">
+        <a href="/" class="underline text-gray-700">
           RSU Bhakti Rahayu Surabaya
         </a>
 
-        <div class="flex items-center justify-between text-xs text-gray-500">
+        <div class="flex items-center justify-between text-xs text-gray-700">
           <p class="flex-1">
             Jl. Ketintang Madya I No.16, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur 60232
           </p>
@@ -118,6 +141,29 @@
             80 m
           </p>
         </div>
+
+        <div class="flex items-center bg-six/10 gap-2 px-4 py-3 rounded-lg mt-6">
+          <AlertTriangle class="text-five w-8 h-8" />
+          <p class="flex-1 text-xs">
+            <span class="font-bold">
+              Penting:
+            </span>
+            Hasil ini merupakan Indikasi Awal. Selalu konsultasikan dengan Dokter untuk untuk 
+            diagnosis dan penanganan yang tepat.
+          </p>
+        </div>
+      </section>
+      {:else}
+      <section>
+        <h5 class="text-xl font-bold text-two pb-2">
+          Rekomendasi
+        </h5>
+
+        <p class="leading-tight text-gray-700">
+          Pertahankan gaya hidup sehat. Lakukan perekaman batuk secara berkala 
+          (misal: 1 bulan sekali). Jika batuk berlanjut lebih dari 2 minggu, segera periksa ke 
+          dokter.
+        </p>
       </section>
       {/if}
 

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "VN-20251120-001",
+    "date": "2025-11-17",
+    "is_potential": false,
+    "recorder": {
+      "audio_path": "",
+      "duration": "00.15"
+    },
+    "details": {
+      "cough_pattern": "Batuk Biasa",
+      "cough_frequency": "1 kali dalam 4 detik"
+    }
+  },
+  {
+    "id": "VN-20251120-002",
+    "date": "2025-11-17",
+    "is_potential": true,
+    "recorder": {
+      "audio_path": "",
+      "duration": "00.15"
+    },
+    "details": {
+      "cough_pattern": "Batuk berdahak parah",
+      "cough_frequency": "5 kali dalam 4 detik"
+    }
+  },
+  {
+    "id": "VN-20251120-003",
+    "date": "2025-11-10",
+    "is_potential": false,
+    "recorder": {
+      "audio_path": "",
+      "duration": "00.15"
+    },
+    "details": {
+      "cough_pattern": "",
+      "cough_frequency": ""
+    }
+  }
+]
