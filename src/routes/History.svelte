@@ -6,6 +6,7 @@
   import { getHistoryDatas, getRecHistoryDatas } from "../utils/get_json_data.utils";
   import PopUpBase from "../components/popup/PopUpBase.svelte";
   import { onMount } from "svelte";
+  import type { RecorderStruct } from "../structures/recorder.struct";
 
   let isRiwayat = $state(true);
   let editedMode = $state(false);
@@ -13,7 +14,7 @@
   let checkDeleteList: string[] = $state([]);
 
   const historyList = getHistoryDatas();
-  const recHistory = getRecHistoryDatas();
+  let recHistory: {date: string, history_record: RecorderStruct[]}[] | undefined= $state();
 
   const cancelEditMode = () => {
     editedMode = false;
@@ -26,7 +27,12 @@
     editedMode = false;
   }
 
-  onMount(() => {
+  $effect(() => {
+    
+  });
+
+  onMount( async() => {
+    recHistory = await getRecHistoryDatas();
     window.scrollTo(0, 0);
   });
 </script>

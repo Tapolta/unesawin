@@ -1,7 +1,8 @@
 import historyRaw from '../data/history.json';
 import HistoryStatus from '../enums/historyStatus.enum';
-import historyRecordRaw from '../data/history_record.json'
 import type { RecorderStruct } from '../structures/recorder.struct';
+
+const API_URL = 'https://6923654a3ad095fb84706fd2.mockapi.io/api/unesawin/history-record';
 
 export const getHistoryDatas = () => {
   const historyList = historyRaw.map((item) => ({
@@ -16,12 +17,18 @@ export const getHistoryData = (id: number) => {
   return getHistoryDatas().find((item) => item.id === id);
 }
 
-export const getRecHistoryDatas = () => {
-  const map = new Map<string, { date: string; history_record: RecorderStruct[] }>();
+export const getRecHistoryDatas = async () => {
+  const res = await fetch(API_URL);
+  const historyRecordRaw = await res.json();
+
+  const map = new Map<
+    string,
+    { date: string; history_record: RecorderStruct[] }
+  >();
 
   for (const item of historyRecordRaw) {
     const record: RecorderStruct = { ...item, date: new Date(item.date) };
-    const dateKey = item.date;
+    const dateKey = new Date(item.date).toISOString().split('T')[0]
 
     if (!map.has(dateKey)) {
       map.set(dateKey, {
@@ -41,9 +48,12 @@ export const getRecHistoryDatas = () => {
   return Array.from(map.values());
 };
 
-export const getRecHistoryData = (id: string) => {
-  const item = historyRecordRaw.find(item => item.id === id);
-  if (!item) return undefined;
+export const getRecHistoryData = async (id: string) => {
+  const res = await fetch(`${API_URL}/${id}`);
+
+  if (!res.ok) return undefined;
+
+  const item = await res.json();
 
   return {
     ...item,

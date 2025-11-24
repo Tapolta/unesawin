@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AlertTriangle, AudioLines, CheckCircle, CircleAlert, PlayCircle } from "@lucide/svelte";
+  import { AlertTriangle, AudioLines, CheckCircle, CircleAlert, LoaderCircle, PlayCircle } from "@lucide/svelte";
   import { push } from "svelte-spa-router";
   import { getRecHistoryData } from "../utils/get_json_data.utils";
   import type { RecorderStruct } from "../structures/recorder.struct";
@@ -7,7 +7,7 @@
   import { onMount } from "svelte";
   
   let id = $derived($params?.id);
-  let data: RecorderStruct | undefined = $derived(getRecHistoryData(id as string));
+  let data: RecorderStruct | undefined = $state();
 
   const formatedDate = (date: Date) => {
     if (!date) { return ''}
@@ -22,18 +22,27 @@
       hour12: false,         
       timeZoneName: "short"
     });
-  }
+  };
 
   const saveHistory = () => {
     push('/history');
-  }
+  };
 
-  onMount(() => {
+  $effect(() => {
+    if (id) (async() => data = await getRecHistoryData(id as string))();
+  });
+
+  onMount( async() => {
     window.scrollTo(0, 0);
   });
 </script>
 
 <div class="max-w-xl mx-auto min-h-screen h-full bg-three mx-8">
+  {#if data === undefined}
+  <div class="flex justify-center items-center h-screen">
+    <LoaderCircle class="animate-spin w-48 h-48 text-four" />
+  </div>
+  {:else}
   <div class={`min-h-screen ${data?.is_potential ? "bg-five/40" : "bg-seven/40"} flex flex-col 
     justify-between`}
   >
@@ -175,4 +184,6 @@
       </button>
     </div>
   </div>
+  {/if}
+  
 </div>

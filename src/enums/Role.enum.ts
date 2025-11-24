@@ -1,6 +1,6 @@
 enum Role {
   Pengguna = 'Pengguna',
-  Radiografer = 'Radiografer',
+  Pemeriksa = 'Pemeriksa',
   Radiolog = 'Radiolog',
 }
 
