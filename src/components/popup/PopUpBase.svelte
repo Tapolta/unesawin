@@ -40,7 +40,7 @@
     transition:fade
   >
     <div
-      class={`relative w-full max-h-[90vh] overflow-y-auto p-6 rounded-2xl shadow-xl bg-three
+      class={`relative w-full max-h-[90vh] ${popUp.overflow ? 'overflow-y-auto' : 'overflow-y-none'} p-6 rounded-2xl shadow-xl bg-three
         ${sizes[popUp.size as keyof typeof sizes]}`}
       transition:scale={{ duration: 150 }}
     >

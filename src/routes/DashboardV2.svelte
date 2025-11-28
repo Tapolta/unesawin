@@ -2,6 +2,10 @@
   import { Phone } from "@lucide/svelte";
   import Navbar from "../components/Navbar.svelte";
   import { getWaktuIndonesia } from "../utils/time.utils";
+  import PopUpBase from "../components/popup/PopUpBase.svelte";
+  import LengkapiProfile from "../components/popup/LengkapiProfile.svelte";
+
+  let popUpStatus = $state(true);
 </script>
 
 <div class="max-w-xl mx-auto min-h-screen h-full">
@@ -184,3 +188,11 @@
   <Navbar page={"dashboard"} />
 </div>
 
+<PopUpBase popUp={{
+  closable: false,
+  size: 'lg',
+  visible: popUpStatus,
+  alignCenter: true,
+}}>
+  <LengkapiProfile bind:popUpStatus={popUpStatus} />
+</PopUpBase>
