@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { House, Mic, ScrollText, Settings, User } from "@lucide/svelte";
+    import { House, Settings, User } from "@lucide/svelte";
 
     let { page } = $props<{
       page: 'dashboard' | 'profile' | 'settings'
@@ -11,7 +11,6 @@
 </script>
 
 <div class="fixed bottom-0 w-full bg-white px-6 py-4 flex justify-center gap-12 z-[10] max-w-xl mx-auto">
-  <!-- Dashboard -->
   <a href="/unesawin/#/dashboard" 
     class={`flex flex-col justify-center items-center 
       ${isActive('dashboard') ? 'text-two' : 'text-four'}`}
@@ -20,7 +19,6 @@
     <p class="text-xs">Beranda</p>
   </a>
 
-  <!-- Profile -->
   <a href="/unesawin/#/profile" 
     class={`flex flex-col justify-center items-center 
       ${isActive('profile') ? 'text-two' : 'text-four'}`}
@@ -29,7 +27,6 @@
     <p class="text-xs">Profil</p>
   </a>
 
-  <!-- Settings -->
   <a href="/unesawin/#/settings" 
     class={`flex flex-col justify-center items-center 
       ${isActive('settings') ? 'text-two' : 'text-four'}`}

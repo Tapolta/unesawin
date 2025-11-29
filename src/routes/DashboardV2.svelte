@@ -99,7 +99,7 @@
         </button>
       </div>
 
-      <ul class="flex justify-between gap-1">
+      <ul class="flex justify-between gap-1 whitespace-nowrap overflow-x-auto">
         <li>
           <button class="font-bold px-2 text-two border-2 border-two text-[0.6rem]">
             Edukasi & Kesadaran

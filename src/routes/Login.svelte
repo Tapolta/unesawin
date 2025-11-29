@@ -9,13 +9,24 @@
   import LoginMethod from "../components/LoginMethod.svelte";
 
   let isPassVisible = $state(false);
+  let role: Role = $state(Role.Pengguna);
 
   const togglePassVisible = () => {
     isPassVisible = !isPassVisible;
   }
 
   const onLogin = () => {
-    push('/dashboard');
+    switch (role) {
+      case Role.Pengguna:
+        push('/dashboard');
+        break;
+      case Role.Pemeriksa:
+        push('/staff-dashboard');
+        break
+      case Role.Radiolog:
+        push('/radiolog-dashboard');
+        break;
+    }
   }
 </script>
 
@@ -41,7 +52,7 @@
       Login
     </h1>
 
-    <RoleList role={Role.Pengguna} />
+    <RoleList bind:role={role} />
 
     <div class="w-full my-8">
       <div class="flex items-center bg-white rounded-xl w-full mb-6 px-2 gap-2">

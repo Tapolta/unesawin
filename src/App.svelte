@@ -11,6 +11,7 @@
   import DashboardV2 from "./routes/DashboardV2.svelte";
   import StaffDashboard from "./components/dashboard/StaffDashboard.svelte";
   import RadiologDashboard from "./components/dashboard/RadiologDashboard.svelte";
+  import RontgenCheck from "./routes/RontgenCheck.svelte";
 
   const routes = {
     '/': LandingPage,
@@ -23,7 +24,8 @@
     '/record': Record,
     '/record-check/:id': RecordCheck,
     '/staff-dashboard' : StaffDashboard,
-    '/radiolog-dashboard' : RadiologDashboard
+    '/radiolog-dashboard' : RadiologDashboard,
+    '/rontgen-check/:id' : RontgenCheck
   };
 </script>
 

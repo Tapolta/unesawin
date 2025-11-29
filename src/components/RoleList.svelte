@@ -1,7 +1,7 @@
 <script lang="ts">
   import Role from "../enums/Role.enum";
 
-  let { role } = $props<{
+  let { role = $bindable() } = $props<{
     role: Role
   }>();
 
