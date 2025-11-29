@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Trash2 } from "@lucide/svelte";
-  import Navbar from "../components/Navbar.svelte";
+  import Navbar from "../components/navbar/Navbar.svelte";
   import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
   import { getHistoryDatas, getRecHistoryDatas } from "../utils/get_json_data.utils";

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { AlertTriangle, Check, MoveLeft, Star } from "@lucide/svelte";
   import { params } from "svelte-spa-router";
-  import Navbar from "../components/Navbar.svelte";
+  import Navbar from "../components/navbar/Navbar.svelte";
   import { getHistoryData } from "../utils/get_json_data.utils";
   import type { HistoryStruct } from "../structures/history.struct";
   import HistoryStatus from "../enums/historyStatus.enum";

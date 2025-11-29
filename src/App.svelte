@@ -9,6 +9,8 @@
   import HistoryDetailed from "./routes/HistoryDetailed.svelte";
   import HistoryEmpty from "./routes/HistoryEmpty.svelte";
   import DashboardV2 from "./routes/DashboardV2.svelte";
+  import StaffDashboard from "./components/dashboard/StaffDashboard.svelte";
+  import RadiologDashboard from "./components/dashboard/RadiologDashboard.svelte";
 
   const routes = {
     '/': LandingPage,
@@ -20,6 +22,8 @@
     '/history/:id': HistoryDetailed,
     '/record': Record,
     '/record-check/:id': RecordCheck,
+    '/staff-dashboard' : StaffDashboard,
+    '/radiolog-dashboard' : RadiologDashboard
   };
 </script>
 

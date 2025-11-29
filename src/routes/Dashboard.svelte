@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import SuggestionWrapper from "../components/keyword_suggestion/SuggestionWrapper.svelte";
-  import Navbar from "../components/Navbar.svelte";
+  import Navbar from "../components/navbar/Navbar.svelte";
   import NewsCard from "../components/news_cards/NewsCard.svelte";
   import NewsCard2 from "../components/news_cards/NewsCard2.svelte";
   import PopUpBase from "../components/popup/PopUpBase.svelte";
