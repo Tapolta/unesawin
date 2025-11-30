@@ -4,10 +4,18 @@
   }>();
 
   let nextPage = $state(false);
+  let usia = $state(0);
+
+  let question = $state({
+    q1:'',
+    q2:'',
+    q3:'',
+    q4:'',
+  });
 </script>
 
 {#if !nextPage}
-  <section class="flex flex-col items-center justif-center text-center w-full bg-red/200 relative h-100">
+<section class="flex flex-col items-center justif-center text-center w-full bg-red/200 relative h-100">
   <div class="-translate-y-35 w-full absolute">
     <img 
       alt="Decoration"
@@ -19,27 +27,33 @@
       Lengkapi Profil
     </h1>
 
-    <div class="w-full">
+    <div class="w-full relative">
       <p class="font-bold">
         Masukkan usia anda
       </p>
 
       <input 
         type="range"
-        class="w-full bg-black h-1 range-black"
+        min="0"
+        max="100"
+        bind:value={usia}
+        class="w-full h-1"
       />
 
+      <div 
+        class="absolute -bottom-4 text-center text-xs font-bold bg-one p-1"
+        style={`left: calc(${usia}% - 10px); width: 20px;`}
+      >
+        {usia}
+      </div>
+
       <div class="flex justify-between text-xs">
-        <p>
-          0
-        </p>
-        <p>
-          100
-        </p>
+        <p>0</p>
+        <p>100</p>
       </div>
     </div>
 
-    <div class="flex items-center gap-30 justify-center pt-2">
+    <div class="flex items-center gap-20 justify-center pt-2">
       <div>
         <h6>
           Tinggi Badan
@@ -94,75 +108,104 @@
   
   <div class="pb-6">
     <p class="leading-tight">
-      Apakah anggota keluarga Anda (yang serumah) pernah  terdiagnosa TB?
+      Apakah anggota keluarga Anda (yang serumah) pernah terdiagnosa TB?
     </p>
 
     <div class="flex items-center gap-2 pt-2">
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
+      <button
+        class={`px-2 w-20 rounded-md ${question.q1  === 'ya' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q1 = 'ya'}
+      >
         Ya
       </button>
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
-        Tidak
+
+      <button
+        class={`px-2 w-20 rounded-md ${question.q1  === 'tidak' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q1  = 'tidak'}
+      >
+        Tidak 
+      </button>
+    </div>
+  </div>
+
+
+  <div class="pb-6">
+    <p class="leading-tight">
+      Apakah anda pernah terdiagnosa HIV?
+    </p>
+
+    <div class="flex items-center gap-2 pt-2">
+      <button
+        class={`px-2 w-20 rounded-md ${question.q2  === 'ya' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q2 = 'ya'}
+      >
+        Ya
+      </button>
+
+      <button
+        class={`px-2 w-20 rounded-md ${question.q2  === 'tidak' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q2  = 'tidak'}
+      >
+        Tidak 
       </button>
     </div>
   </div>
 
   <div class="pb-6">
     <p class="leading-tight">
-      Apakah Anda pernah terdiagnosa HIV?
+      Apakah anda perokok aktif?
     </p>
 
     <div class="flex items-center gap-2 pt-2">
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
+      <button
+        class={`px-2 w-20 rounded-md ${question.q3  === 'ya' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q3 = 'ya'}
+      >
         Ya
       </button>
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
-        Tidak
-      </button>
-    </div>
-  </div>
 
-  <div class="pb-6">
-    <p class="leading-tight">
-      Apakah Anda perokok?
-    </p>
-
-    <div class="flex items-center gap-2 pt-2">
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
-        Ya
-      </button>
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
-        Tidak
+      <button
+        class={`px-2 w-20 rounded-md ${question.q3  === 'tidak' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q3  = 'tidak'}
+      >
+        Tidak 
       </button>
     </div>
   </div>
 
   <div>
     <p class="leading-tight">
-      Apakah Anda pernah terkena gejala Diabetes?
+      Apakah anda pernah terkena gejala Diabetes?
     </p>
 
     <div class="flex items-center gap-2 pt-2">
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
+      <button
+        class={`px-2 w-20 rounded-md ${question.q4  === 'ya' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q4 = 'ya'}
+      >
         Ya
       </button>
-      <button class={`bg-four/20 rounded-md px-2 w-20`}>
-        Tidak
+
+      <button
+        class={`px-2 w-20 rounded-md ${question.q4  === 'tidak' ? 'bg-two text-white' : 'bg-four/20'}`}
+        onclick={() => question.q4  = 'tidak'}
+      >
+        Tidak 
       </button>
     </div>
   </div>
 
   <button 
-      onclick={() => popUpStatus = false}
-      class="bg-two px-2 py-1 rounded-lg text-white font-bold mt-8 w-full"
-    >
-      Simpan
-    </button>
+    onclick={() => popUpStatus = false}
+    class="bg-two px-2 py-1 rounded-lg text-white font-bold mt-8 w-full"
+  >
+    Simpan
+  </button>
 
-    <div class="flex items-center justify-center gap-2 pt-10">
-      <div class={`p-2 ${nextPage ? 'bg-four' : 'bg-two'} rounded-full`}></div>
-      <div class={`p-2 ${nextPage ? 'bg-two' : 'bg-four'} rounded-full`}></div>
-    </div>
+  <div class="flex items-center justify-center gap-2 pt-10">
+    <div class={`p-2 ${nextPage ? 'bg-four' : 'bg-two'} rounded-full`}></div>
+    <div class={`p-2 ${nextPage ? 'bg-two' : 'bg-four'} rounded-full`}></div>
+  </div>
 </section>
 {/if}
 

@@ -15,15 +15,7 @@
       Mode Ai
     </p>
   </div>
-   <div class="flex flex-col items-center gap-1">
-    <div class={`${status === 'chat' ? 'bg-two' : 'bg-four'} rounded-full p-1`}> 
-      <MessageCircle class="text-white h-8 w-8" />
-    </div>
-    <p class={`${status === 'chat' ? 'text-two' : 'text-four'} font-bold text-xs`}>
-      Chat
-    </p>
-  </div>
-   <div class="flex flex-col items-center gap-1">
+  <div class="flex flex-col items-center gap-1">
     <div class={`${status === 'profil' ? 'bg-two' : 'bg-four'} rounded-full p-1`}> 
       <User class="text-white h-8 w-8" />
     </div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { push } from "svelte-spa-router";
+
   let data = $state([
     '/unesawin/img/rontgen_example.jpeg',
     '/unesawin/img/rontgen_example2.jpeg'
@@ -45,7 +47,10 @@
   </div>
   
   <div class="w-full flex justify-end">
-    <button class="bg-two px-2 text-white rounded-lg font-bold px-8">
+    <button
+      onclick={() => push('/radiolog-dashboard')}
+      class="bg-two px-2 text-white rounded-lg font-bold px-8"
+    >
       Kirim
     </button>
   </div>

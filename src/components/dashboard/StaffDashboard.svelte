@@ -46,8 +46,9 @@
         <Check class="text-white w-44 h-44" />
       </button>
     </div>
-    <h4 class="absolute translate-y-40 text-3xl font-semibold">
-      Terkirim ke Radiolog
+    <h4 class="absolute translate-y-40 text-2xl font-semibold text-center pt-10">
+      TB Terdeteksi <br />
+      Berhasil mengirim ke Radiolog
     </h4>
     {/if}
   </div>

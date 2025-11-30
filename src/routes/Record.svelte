@@ -14,7 +14,7 @@
     afterRecord = true;
 
     setTimeout(() => {
-      push("/record-check/coba");
+      push("/record-check/VN-20251120-002");
     }, 6000);
   }
 
