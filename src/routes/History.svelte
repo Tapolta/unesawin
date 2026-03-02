@@ -19,17 +19,17 @@
   const cancelEditMode = () => {
     editedMode = false;
     checkDeleteList = [];
-  }
+  };
 
   const toggleRiwayat = () => {
     window.scrollTo(0, 0);
     isRiwayat = !isRiwayat;
     editedMode = false;
-  }
+  };
 
-  $effect(() => {
+  const deleteHandle = () => {
     
-  });
+  };
 
   onMount( async() => {
     recHistory = await getRecHistoryDatas();

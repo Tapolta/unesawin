@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AlertTriangle, AudioLines, CheckCircle, CircleAlert, LoaderCircle, PlayCircle } from "@lucide/svelte";
+  import { AlertTriangle, AudioLines, CheckCircle, CircleAlert, LoaderCircle, PauseCircle, PlayCircle } from "@lucide/svelte";
   import { push } from "svelte-spa-router";
   import { getRecHistoryData } from "../utils/get_json_data.utils";
   import type { RecorderStruct } from "../structures/recorder.struct";
@@ -8,6 +8,8 @@
   
   let id = $derived($params?.id);
   let data: RecorderStruct | undefined = $state();
+  let audioEl: HTMLAudioElement | undefined = $state();
+  let isPlay: boolean = $state(false);
 
   const formatedDate = (date: Date) => {
     if (!date) { return ''}
@@ -28,6 +30,20 @@
     push('/history');
   };
 
+  const togglePlayAudio = () => {
+    if (isPlay) {
+      audioEl?.pause();
+    } else {
+      audioEl?.play();
+    }
+
+    isPlay = !isPlay;
+  };
+
+  const handleEnded = () => {
+    isPlay = false;
+  };
+
   $effect(() => {
     if (id) (async() => data = await getRecHistoryData(id as string))();
   });
@@ -43,12 +59,12 @@
     <LoaderCircle class="animate-spin w-48 h-48 text-four" />
   </div>
   {:else}
-  <div class={`min-h-screen ${data?.is_potential ? "bg-five/40" : "bg-seven/40"} flex flex-col 
+  <div class={`min-h-screen ${data?.model.status ? "bg-five/40" : "bg-seven/40"} flex flex-col 
     justify-between`}
   >
     <div class="flex items-center flex-col gap-2 pt-12 pb-8">
-      <div class={`rounded-full ${data?.is_potential ? "bg-five" : "bg-seven"}`}>
-        {#if data?.is_potential}
+      <div class={`rounded-full ${data?.model.status ? "bg-five" : "bg-seven"}`}>
+        {#if data?.model.status}
           <CircleAlert class="text-white w-30 h-30" />
         {:else}
           <CheckCircle class="text-white w-30 h-30" />
@@ -59,8 +75,8 @@
         Analisis selesai
       </p>
 
-      <h3 class={`text-4xl ${data?.is_potential ? 'text-five' : 'text-seven'}  font-bold`}>
-        {data?.is_potential ? 'Indikasi Tinggi TBC' : 'Tidak Terindikasi TBC'}
+      <h3 class={`text-4xl ${data?.model.status ? 'text-five' : 'text-seven'}  font-bold`}>
+        {data?.model.status ? 'Indikasi Tinggi TBC' : 'Tidak Terindikasi TBC'}
       </h3>
     </div>
 
@@ -78,13 +94,13 @@
             Tanggal & Waktu: {formatedDate(data?.date as Date)}
           </p>
           <p>
-            Durasi rekaman: {data?.recorder.duration}
+            Durasi rekaman: {data?.duration}
           </p>
         </div>
 
         <div class="bg-one py-2 relative flex items-center justify-center">
             <div class={`flex w-full absolute justify-center 
-              ${data?.is_potential ? "text-five" : "text-seven"}`}
+              ${data?.model.status ? "text-five" : "text-seven"}`}
             >
               <AudioLines />
               <AudioLines />
@@ -101,9 +117,21 @@
               <AudioLines />
             </div>
 
-            <button class={`${data?.is_potential ? "bg-five" : "bg-seven"} rounded-full z-1`}>
+            <button 
+              class={`${data?.model.status ? "bg-five" : "bg-seven"} rounded-full z-1`}
+              onclick={togglePlayAudio}
+            >
+              {#if isPlay}
+              <PauseCircle class="w-10 h-10 text-white" />
+              {:else}
               <PlayCircle class="w-10 h-10 text-white" />
+              {/if}
             </button>
+            <audio
+              bind:this={audioEl}
+              src={data?.audio_path}
+              onended={handleEnded}
+            ></audio>
         </div>
       </section>
 
@@ -114,25 +142,25 @@
 
         <div class="text-sm text-gray-700">
           <p>
-            Pola Batuk Dideteksi: {data?.details.cough_pattern}
+            Pola Batuk Dideteksi: {data?.model.pattern}
           </p>
           <p>
-            Frekuensi Batuk: {data?.details.cough_frequency}
+            Frekuensi Batuk: {data?.model.frequency}
           </p>
           <p>
             Analisis AI: 
-            {data?.is_potential ? 'Anomali terdeteksi' : 'Tidak ada anomali terdeteksi'}
+            {data?.model.status ? 'Anomali terdeteksi' : 'Tidak ada anomali terdeteksi'}
           </p>
         </div>
 
-        {#if data?.is_potential}
+        {#if data?.model.status}
         <h5 class="w-full bg-six/10 text-center text-six font-bold py-2 mt-3 text-lg rounded-lg">
           Segera Konsultasi Dokter
         </h5>
         {/if}
       </section>
         
-      {#if data?.is_potential}
+      {#if data?.model.status}
       <section>
         <h6 class="font-bold text-md mb-1">
           Rekomendasi Cepat
