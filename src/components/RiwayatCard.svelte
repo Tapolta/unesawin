@@ -2,6 +2,7 @@
   import { Calendar, Clock, SquareChevronDown } from "@lucide/svelte";
   import HistoryStatus from "../enums/historyStatus.enum";
   import type { HistoryStruct } from "../structures/history.struct";
+    import { onMount } from "svelte";
 
   let { history } = $props<{
     history: HistoryStruct
@@ -9,17 +10,19 @@
 
   let statusText = $state('');
 
-  switch (history.status) {
-    case HistoryStatus.Pending:
-      statusText = 'Pending';
-      break;
-    case HistoryStatus.Tb:
-      statusText = 'Potensi Tb';
-      break;
-    case HistoryStatus.NoTb:
-      statusText = 'Tidak Potensi Tb';
-      break;
-  }
+  onMount(() => {
+    switch (history.status) {
+      case HistoryStatus.Pending:
+        statusText = 'Pending';
+        break;
+      case HistoryStatus.Tb:
+        statusText = 'Potensi Tb';
+        break;
+      case HistoryStatus.NoTb:
+        statusText = 'Tidak Potensi Tb';
+        break;
+    }
+  });
 </script>
 
 <div class="bg-one text-white rounded-t-[30%] rounded-b-4xl w-full">

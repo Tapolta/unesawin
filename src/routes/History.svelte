@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Trash2 } from "@lucide/svelte";
+  import { LoaderIcon, Trash2 } from "@lucide/svelte";
   import Navbar from "../components/navbar/Navbar.svelte";
   import RecorederWrapper from "../components/Recorder/RecorederWrapper.svelte";
   import RiwayatCard from "../components/RiwayatCard.svelte";
@@ -7,14 +7,16 @@
   import PopUpBase from "../components/popup/PopUpBase.svelte";
   import { onMount } from "svelte";
   import type { RecorderStruct } from "../structures/recorder.struct";
+  import { deleteRecorder } from "../api/record.api";
 
   let isRiwayat = $state(true);
   let editedMode = $state(false);
   let popUpOpen = $state(false);
   let checkDeleteList: string[] = $state([]);
+  let loading: boolean = $state(false);
 
   const historyList = getHistoryDatas();
-  let recHistory: {date: string, history_record: RecorderStruct[]}[] | undefined= $state();
+  let recHistory: {date: string, history_record: RecorderStruct[]}[]= $state([]);
 
   const cancelEditMode = () => {
     editedMode = false;
@@ -27,8 +29,16 @@
     editedMode = false;
   };
 
-  const deleteHandle = () => {
-    
+  const deleteHandle = async () => {
+    loading = true;
+    const success = await deleteRecorder(checkDeleteList);
+    loading = false;
+
+    if (success) {
+      cancelEditMode();
+      popUpOpen = false;
+      recHistory = await getRecHistoryDatas();
+    }
   };
 
   onMount( async() => {
@@ -72,7 +82,7 @@
     >
       Batalkan
     </button>
-    {:else}
+    {:else if recHistory.length > 0}
      <button
       onclick={() => editedMode = !editedMode} 
       class="bg-two rounded-xl text-white px-2 py-1"
@@ -94,8 +104,8 @@
     {/if}
   </div>
 
+  {#each recHistory as history}
   <ul class="w-full flex flex-col gap-4 overflow-y-auto mb-28">
-    {#each recHistory as history}
     <li>
       <RecorederWrapper
         date={history.date} 
@@ -104,8 +114,12 @@
         bind:groupDeleted={checkDeleteList}
       />
     </li>
-    {/each}
   </ul>
+  {/each}
+  
+  <h1 class="text-2xl font-bold">
+    {recHistory.length > 0 ? '' : 'Belum ada rekaman'}
+  </h1>
   {/if}
 
   <Navbar page={"history"} />
@@ -117,6 +131,12 @@
   visible: popUpOpen,
   alignCenter: true,
 }}>
+  {#if loading}
+  <h2 class="text-two font-semibold text-2xl text-center mb-6">
+    Menghapus
+  </h2>
+  <LoaderIcon class="mx-auto animate-spin w-10 h-10" />
+  {:else}
   <div class="flex flex-col gap-10">
     <h6 class="text-two text-2xl font-bold text-center">
       Hapus 
@@ -136,9 +156,11 @@
 
       <button
         class="text-four text-xl"
+        onclick={deleteHandle}
       >
         Ya
       </button>
     </div>
   </div>
+  {/if}
 </PopUpBase>

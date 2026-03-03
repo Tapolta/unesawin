@@ -47,10 +47,7 @@
       audioChunks = [];
 
       stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
-
       sendRecorderHandle();
-
-      console.log("Rekaman selesai:", audioBlob);
     };
 
     mediaRecorder.start();

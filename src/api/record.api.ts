@@ -26,6 +26,34 @@ export const sendRecorderData = async (audioBlob: Blob): Promise<string> => {
   }
 };
 
+export const deleteRecorder = async (ids: string[]): Promise<boolean> => {
+  try {
+    const requests = ids.map(id => fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        deleted: true
+      })
+    }));
+
+    const responses = await Promise.all(requests);
+
+    responses.forEach(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Gagal untuk update ${errText}`);
+      }
+    });
+
+    return true;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 const generateId = (): string => {
   return crypto.randomUUID();
 };
@@ -57,7 +85,8 @@ const saveData = async (payload: RecorderStruct): Promise<string> => {
       date: payload.date.toISOString(),
       audio_path: payload.audio_path,
       duration: payload.duration,
-      model: payload.model
+      model: payload.model,
+      deleted: false
     })
   });
 

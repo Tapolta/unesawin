@@ -18,8 +18,12 @@ export const getHistoryData = (id: number) => {
 }
 
 export const getRecHistoryDatas = async () => {
-  const res = await fetch(API_URL);
+  const res = await fetch(`${API_URL}?deleted=false`);
   const historyRecordRaw = await res.json();
+
+  if (!res.ok) {
+    return Array.from([]);
+  }
 
   const map = new Map<
     string,
